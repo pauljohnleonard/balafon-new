@@ -17,11 +17,14 @@ module.exports = [
   {
     files: ['**/*.ts'],
     rules: {
+      "@angular-eslint/prefer-standalone": [
+        "ignore"
+      ],
       '@angular-eslint/directive-selector': [
         'error',
         {
           type: 'attribute',
-          prefix: 'app',
+          prefix: 'balafon',
           style: 'camelCase',
         },
       ],
@@ -29,7 +32,7 @@ module.exports = [
         'error',
         {
           type: 'element',
-          prefix: 'app',
+          prefix: 'balafon',
           style: 'kebab-case',
         },
       ],

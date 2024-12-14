@@ -1,0 +1,61 @@
+<balafon-toolbar [showBack]="showBack" (back)="goBack()"> </balafon-toolbar>
+<div
+  style="
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  "
+  *ngIf="ensemble"
+>
+  <mat-toolbar>
+    <mat-form-field style="flex: 1 1 auto">
+      <input
+        matInput
+        type="text"
+        [formControl]="title"
+        matTooltip="Edit title"
+      />
+    </mat-form-field>
+
+    <span style="flex: 1 1 auto"></span>
+
+    <mat-form-field style="flex: 1 1 auto">
+      <input
+        matInput
+        [formControl]="countIn"
+        type="text"
+        style="width: 200px"
+      />
+    </mat-form-field>
+
+    <button
+      mat-icon-button
+      (click)="clone()"
+      matTooltip="Clone"
+      *ngIf="ensemble?.key"
+    >
+      <mat-icon>content_copy</mat-icon>
+    </button>
+
+    <button
+      mat-icon-button
+      (click)="saveItem()"
+      matTooltip="Save to cloud"
+      *ngIf="canSave()"
+    >
+      <mat-icon>cloud_upload</mat-icon>
+    </button>
+  </mat-toolbar>
+
+  <div class="balafon-container">
+    <ng-container *ngFor="let pattern of ensemble.patterns; let last = last">
+      <balafon-app [ensembleComponent]="this" [pattern]="pattern"></balafon-app>
+      <div *ngIf="!last" style="width: 20px"></div>
+    </ng-container>
+
+    <button mat-icon-button (click)="addBalafon()" matTooltip="Add looper">
+      <mat-icon>add_circle</mat-icon>
+    </button>
+  </div>
+</div>

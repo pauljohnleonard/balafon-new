@@ -1,0 +1,162 @@
+<ng-container *ngIf="ready">
+  <div class="header">
+    <button mat-icon-button class="btn1" (click)="muted = !muted">
+      <mat-icon> {{ muted ? 'volume_off' : 'volume_up' }} </mat-icon>
+    </button>
+
+    <mat-form-field style="width: 90px;">
+      <mat-select [formControl]="instCtrl">
+        <mat-option *ngFor="let inst of balafonService.instrumentPrototypes" [value]="inst.name">
+          {{ inst.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field style="margin-left: 5px; width: 90px;">
+      <input matInput type="text" [formControl]="metaCtrl" />
+    </mat-form-field>
+
+    <span style="flex: 1 1 auto;"></span>
+
+    <div style="position: relative;">
+      <button mat-icon-button class="popbutton" (click)="showpopup = !showpopup">
+        <mat-icon>more_vert </mat-icon>
+      </button>
+
+      <div class="mat-elevation-z8 popup" *ngIf="showpopup">
+        <div mat-menu-item>
+          <mat-icon>volume_mute</mat-icon>
+          <mat-slider
+            max="1.0"
+            min="0"
+            step="0.02"
+            [value]="pattern.volume"
+            (input)="volumeChange($event)"
+          >
+          </mat-slider>
+        </div>
+        <div mat-menu-item>
+          <mat-icon svgIcon="pan-horizontal"></mat-icon>
+          <mat-slider
+            max="1"
+            min="-1"
+            step="0.05"
+            [value]="pattern.pan"
+            (input)="panChange($event)"
+          >
+          </mat-slider>
+        </div>
+
+        <button mat-menu-item [matMenuTriggerFor]="barlengthMenu">
+          {{ pattern.ticksPerBar }} Beats per bar
+        </button>
+        <button mat-menu-item [matMenuTriggerFor]="barsMenu">{{ pattern.nBars }} Bars</button>
+
+        <button mat-menu-item (click)="remove()"><mat-icon> delete </mat-icon> Delete</button>
+      </div>
+    </div>
+
+    <mat-menu #barlengthMenu>
+      <button
+        mat-menu-item
+        *ngFor="let len of barLengths"
+        [value]="len"
+        (click)="setBarlength(len)"
+      >
+        {{ len }}
+      </button>
+    </mat-menu>
+    <mat-menu #barsMenu>
+      <button mat-menu-item *ngFor="let len of nBars" [value]="len" (click)="setNBars(len)">
+        {{ len }}
+      </button>
+    </mat-menu>
+  </div>
+</ng-container>
+
+<!-- <table> -->
+<div class="myRow">
+  <div *ngFor="let col of cols" (click)="playNote(col)" [matTooltip]="tooltip[col]" class="cell">
+    <div class="dot" [style.background]="colors[col % 5]"></div>
+  </div>
+</div>
+
+<div class="container" (mouseenter)="focus = true" (mouseleave)="focus = false">
+  <ng-container class="outer" *ngFor="let row of rows; let i = index">
+    <div class="myRow" #ROWS>
+      <div *ngIf="i === this.pattern.startAt" class="start-at"></div>
+
+      <ng-container *ngFor="let col of cols">
+        <!--             context: inContextArea(row, col), -->
+        <div
+          [ngClass]="{
+            cell: true,
+            bar: row % pattern.ticksPerBar === 0
+          }"
+          (click)="toggle($event, row, col)"
+          (contextmenu)="onRightClick($event, row, col)"
+          [style.background]="getBackground(row, col)"
+          (mousedown)="onDragStart($event, row, col)"
+          (mousemove)="onDrag($event, row, col)"
+          (mouseup)="onDragEnd($event, row, col)"
+        >
+          <div
+            [ngClass]="{ dot: matrix[row] ? matrix[row][col] : '' }"
+            [style.background]="matrix[row] && matrix[row][col] ? colors[col % 5] : ''"
+          ></div>
+        </div>
+      </ng-container>
+    </div>
+  </ng-container>
+</div>
+
+<div
+  style="visibility: hidden; position: fixed;"
+  [style.left]="contextMenuPosition.x"
+  [style.top]="contextMenuPosition.y"
+  [matMenuTriggerFor]="contextMenu"
+></div>
+
+<mat-menu #contextMenu="matMenu" (closed)="resetContext()">
+  <button mat-menu-item (click)="copybar()">
+    <span>Copy bar</span>
+  </button>
+  <button mat-menu-item (click)="insertbefore()">
+    <span>Add bar before</span>
+  </button>
+
+  <button mat-menu-item (click)="insertafter()">
+    <span>Append bar after</span>
+  </button>
+
+  <button mat-menu-item (click)="deletebar()">
+    <span>Delete bar</span>
+  </button>
+
+  <button mat-menu-item (click)="pasteover()">
+    <span>Paste bar over</span>
+  </button>
+
+  <button mat-menu-item (click)="insertbefore(true)">
+    <span>Paste bar before</span>
+  </button>
+  <button mat-menu-item (click)="insertafter(true)">
+    <span>Paste After</span>
+  </button>
+
+  <button mat-menu-item (click)="setStartTick()">
+    <span>Start At</span>
+  </button>
+
+  <button mat-menu-item (click)="cutArea()">
+    <span>Delete Area</span>
+  </button>
+
+  <button mat-menu-item (click)="pasteArea()">
+    <span>Paste Area</span>
+  </button>
+</mat-menu>
+
+<div class="myOverLayNext" [style.width]="cols.length * 20 + 'px'" #XXXXNEXT></div>
+
+<div class="myOverLay" [style.width]="cols.length * 20 + 'px'" #XXXX></div>

@@ -1,0 +1,139 @@
+.filled {
+  background-color: grey;
+}
+
+td:hover {
+  background-color: pink;
+}
+
+table,
+th,
+td {
+  border: 1px solid rgba(0, 0, 0, 0.355);
+  border-collapse: collapse;
+}
+
+tr {
+  height: 20px;
+}
+
+.contextTop {
+  border-top: 2px solid red;
+}
+.contextLeft {
+  border-left: 2px solid red !important;
+}
+.contextBottom {
+  border-bottom: 2px solid red;
+}
+.contextRight {
+  border-right: 2px solid red;
+}
+
+.bar {
+  border-top: 3px solid black;
+}
+
+.tick {
+  border-top: 2px solid rgba(0, 0, 0, 0.355);
+}
+
+.myRow {
+  position: relative;
+  display: flex;
+  height: 20px;
+
+  border-top: 1px solid grey;
+  width: fit-content;
+  display: flex;
+  flex-wrap: nowrap;
+  align-content: stretch;
+  //   background-color: rgba(255, 192, 203, 0.0001);
+}
+
+.outer {
+  padding: 0px;
+  margin: 0px;
+}
+
+.myRow:last-child {
+  border-bottom: 1px solid grey;
+}
+
+.myOverLay {
+  position: absolute;
+  background-color: rgba(255, 110, 134, 0.27);
+  height: 20px;
+  will-change: transform;
+  opacity: 0;
+  transform: translateZ(0);
+  pointer-events: none;
+}
+
+.myOverLayNext {
+  position: absolute;
+  background-color: rgba(110, 255, 134, 0.27);
+  height: 20px;
+  will-change: transform;
+  opacity: 1;
+  transform: translateZ(0);
+  pointer-events: none;
+}
+
+.start-at {
+  position: absolute;
+  left: -10px;
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+
+  border-left: 10px solid green;
+}
+.container:hover {
+  background-color: bisque;
+}
+
+.hilight {
+  background-color: rgba(255, 192, 203, 0.6);
+}
+
+.cell {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  border-left: 1px solid grey;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.cell:last-child {
+  border-right: 1px solid grey;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  margin: 3px;
+  border-radius: 50%;
+  box-sizing: border-box;
+  border: 1px solid black;
+}
+
+.header {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.popbutton {
+  position: relative;
+}
+
+.popup {
+  background-color: white;
+  position: absolute;
+  right: -10px;
+  z-index: 1;
+}

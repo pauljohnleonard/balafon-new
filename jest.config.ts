@@ -1,8 +1,8 @@
 export default {
-  displayName: 'balafon-new',
+  displayName: 'balafon',
   preset: './jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: './coverage/balafon-new',
+  coverageDirectory: './coverage/balafon',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',

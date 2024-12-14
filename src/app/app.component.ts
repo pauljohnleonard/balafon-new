@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { NxWelcomeComponent } from './nx-welcome.component';
+import { IconService } from './services/icon.service';
 
 @Component({
-  imports: [NxWelcomeComponent, RouterModule],
-  selector: 'app-root',
+  standalone: false,
+  selector: 'balafon-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'balafon-new';
+  constructor(public iconService: IconService) {}
 }

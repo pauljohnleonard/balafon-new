@@ -1,0 +1,31 @@
+<ng-container>
+  <mat-toolbar>
+    <button mat-icon-button routerLink="/home" matTooltip="Home">
+      <mat-icon>home</mat-icon>
+    </button>
+
+    <button *ngIf="showBack" mat-icon-button (click)="back.emit()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+
+    <span style="flex: 1 1 auto"></span>
+    <balafon-transport></balafon-transport>
+
+    <span style="flex: 1 1 auto"></span>
+    <ng-container *ngIf="user">
+      <!-- <div style="padding-right:10px;margin: auto;">{{ user.displayName }}</div> -->
+      <button mat-icon-button (click)="auth.logout()" matTooltip="Logout">
+        <img class="logo" [src]="user.photoURL" width="40" height="40" />
+      </button>
+    </ng-container>
+
+    <!-- <ngx-auth-firebaseui-providers *ngIf="!user" layout="column" providers="[google]"></ngx-auth-firebaseui-providers> -->
+  </mat-toolbar>
+
+  <mat-divider> </mat-divider>
+  <mat-progress-bar
+    *ngIf="!balafonService.ready$.value || !(ensembleService.ready$ | async)"
+    mode="determinate"
+    [value]="progressPercent"
+  ></mat-progress-bar>
+</ng-container>

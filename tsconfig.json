@@ -16,7 +16,7 @@
     "paths": {},
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "strict": true,
+    "strict": false,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
@@ -30,9 +30,6 @@
     },
     {
       "path": "./tsconfig.app.json"
-    },
-    {
-      "path": "./tsconfig.spec.json"
     }
   ],
   "compileOnSave": false,

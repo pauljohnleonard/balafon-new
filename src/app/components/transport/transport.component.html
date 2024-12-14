@@ -1,0 +1,21 @@
+<div
+  style="width: 280px; border: 1px solid rgba(30, 30, 30, 0.1);"
+  *ngIf="ensembleService.ensemble"
+>
+  <div style="display: flex; align-content: center;">
+    <button mat-icon-button class="btn1" (click)="ensembleService.play()">
+      <mat-icon> {{ this.ensembleService.playing ? 'stop' : 'play_arrow' }} </mat-icon>
+    </button>
+
+    <!--  style="width: 100%"-->
+    <mat-slider
+      max="180"
+      min="40"
+      step="1"
+      [value]="ensembleService.ensemble.bpm"
+      (input)="metroChange($event)"
+    ></mat-slider>
+    <img src="assets/images/crochet.png" style="height: 35px; padding-left: 30px;" />
+    <div style="width: 100px;">{{ ensembleService.ensemble.bpm }}</div>
+  </div>
+</div>
