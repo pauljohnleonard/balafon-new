@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BalafonService } from '../../services/balafon.service';
-import { BehaviorSubject } from 'rxjs';
-import { Ensemble } from '../../model/model';
-import { MatSliderChange } from '@angular/material/slider';
+
 import { EnsembleService } from '../../services/ensemble.service';
 
 @Component({
@@ -21,7 +19,7 @@ export class TransportComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  metroChange(evt: MatSliderChange) {
-    this.ensembleService.ensemble.bpm = evt.value;
+  metroChange(evt) {
+    this.ensembleService.ensemble.bpm = evt;
   }
 }

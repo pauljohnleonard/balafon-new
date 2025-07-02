@@ -22,7 +22,7 @@ import { Instrument } from '../../instrument/instrument';
 
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
-import deepClone from 'deep-clone';
+import { deepClone } from 'lodash';
 
 const barmap = {
   '-': 0,
@@ -417,6 +417,7 @@ export class BalafonComponent implements OnInit {
     this.pattern.matrix = newMatrix;
     event.stopPropagation();
     this.ensembleComponent.dirty = true;
+    return true;
   }
 
   private makeRowsAndCols() {

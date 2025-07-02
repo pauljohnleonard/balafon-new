@@ -1,9 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@angular/fire/storage';
 import { HttpClient } from '@angular/common/http';
-import { mergeMap } from 'rxjs/operators';
 import { Ensemble } from '../model/model';
-// import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import {
+  ref,
+  uploadBytes,
+  listAll,
+  StorageReference,
+  ListResult,
+  getDownloadURL,
+} from 'firebase/storage';
 
 @Injectable({
   providedIn: 'root',
@@ -11,21 +17,21 @@ import { Ensemble } from '../model/model';
 export class StorageService {
   itemMap = {};
 
-  storageRef: any;
+  storageRef: StorageReference;
   loading = false;
   constructor(private storage: Storage, public http: HttpClient) {
     // Get a reference to the storage service, which is used to create references in your storage bucket
     // Create a storage reference from our storage service
   }
 
-  async upload(data: any, path: string) {
-    const ref = this.storage.ref(path);
+  async upload(data: any, path: string): Promise<void> {
+    const storageRef = ref(this.storage, path);
     const payload = JSON.stringify(data);
     const myblob = new Blob([payload], {
       type: 'application/json',
     });
 
-    await ref.put(myblob);
+    await uploadBytes(storageRef, myblob);
 
     // const buf = await data.arrayBuffer();
     // this.debug(buf);
@@ -36,20 +42,16 @@ export class StorageService {
     for (let i = 0; i < 10; i++) console.log(view[i]);
   }
 
-  async list() {
+  async list(): Promise<Ensemble[]> {
     this.loading = true;
     const ensembleList: Ensemble[] = [] as any;
-    const storageRef = this.storage.ref('');
+    const storageRef = ref(this.storage, ''); // <-- fixed here
 
-    const list = await storageRef.listAll();
-
-    const res = await list.toPromise();
+    const res = await listAll(storageRef);
 
     for (const prefix of res.prefixes) {
-      const childRef = this.storage.ref(prefix.fullPath + '/');
-      const childList = await childRef.listAll();
-
-      const resChild = await childList.toPromise();
+      const childRef = ref(this.storage, prefix.fullPath + '/');
+      const resChild: ListResult = await listAll(childRef);
 
       const promises = [];
       for (const item of resChild.items) {
@@ -66,8 +68,11 @@ export class StorageService {
     return ensembleList;
   }
 
-  async getEnsemble(item, ensembleList) {
-    const url = await item.getDownloadURL();
+  async getEnsemble(
+    item: StorageReference,
+    ensembleList: Ensemble[]
+  ): Promise<void> {
+    const url = await getDownloadURL(item);
     const ensemble = await this.http.get<Ensemble>(url).toPromise();
     this.itemMap[ensemble.key] = item;
     ensembleList.push(ensemble);

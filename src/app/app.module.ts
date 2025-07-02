@@ -7,12 +7,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSliderModule } from '@angular/material/slider';
 
-// import { AngularFireModule } from '@angular/fire';
-// import { AngularFirestoreModule } from '@angular/fire/firestore';
-// import { AngularFireAuthModule } from '@angular/fire/auth';
-// import// import { AngularFireStorageModule, BUCKET } from '@angular/fire/storage';
-// import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
-
 import { AppRoutingModule } from './app-routing.module';
 import { BalafonComponent } from './components/balafon/balafon.component';
 import { RouterModule } from '@angular/router';
@@ -36,7 +30,8 @@ import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { MatInputModule } from '@angular/material/input';
 import { environment } from 'src/environments/environment';
-
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { provideStorage, getStorage } from '@angular/fire/storage';
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,50 +52,30 @@ import { environment } from 'src/environments/environment';
     MatButtonModule,
     MatFormFieldModule,
     MatIconModule,
-    // MatInputModule,
+    MatInputModule,
+    MatSliderModule,
+    MatSelectModule,
     MatIconModule,
     MatProgressBarModule,
     MatButtonModule,
     MatTableModule,
     MatToolbarModule,
-    // MatTooltipModule,
-    // MatMenuModule,
+    MatTooltipModule,
+    MatMenuModule,
     MatCardModule,
     MatFormFieldModule,
-    // MatSelectModule,
+
     MatListModule,
     ReactiveFormsModule,
     MatToolbarModule,
     MatDividerModule,
-
-    // AngularFireModule.initializeApp(environment.firebaseConfig),
-    // AngularFirestoreModule, // imports firebase/firestore, only needed for database features
-    // AngularFireAuthModule, // imports firebase/auth, only needed for auth features
-    // AngularFireStorageModule,
-    // NgxAuthFirebaseUIModule.forRoot(environment.firebaseConfig, () => 'your_app_name_factory', {
-    //   enableFirestoreSync: true, // enable/disable autosync users with firestore
-    //   toastMessageOnAuthSuccess: false, // whether to open/show a snackbar message on auth success - default : true
-    //   toastMessageOnAuthError: true, // whether to open/show a snackbar message on auth error - default : true
-    //   authGuardFallbackURL: '/login', // url for unauthenticated users - to use in combination with canActivate feature on a route
-    //   authGuardLoggedInURL: '/home', // url for authenticated users - to use in combination with canActivate feature on a route
-    //   passwordMaxLength: 60, // `min/max` input parameters in components should be within this range.
-    //   passwordMinLength: 8, // Password length min/max in forms independently of each componenet min/max.
-    //   // Same as password but for the name
-    //   nameMaxLength: 50,
-    //   nameMinLength: 2,
-    //   // If set, sign-in/up form is not available until email has been verified.
-    //   // Plus protected routes are still protected even though user is connected.
-    //   guardProtectedRoutesUntilEmailIsVerified: true,
-    //   enableEmailVerification: true, // default: true
-    // }),
-    // ServiceWorkerModule.register('ngsw-worker.js', {
-    //   enabled: environment.production,
-    // }),
   ],
   providers: [
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideAuth(() => getAuth()),
-
+    // If you need Firestore or Storage, add:
+    provideFirestore(() => getFirestore()),
+    provideStorage(() => getStorage()),
     // { provide: BUCKET, useValue: environment.firebaseConfig.storageBucket },
   ],
   bootstrap: [AppComponent],

@@ -17,9 +17,7 @@ module.exports = [
   {
     files: ['**/*.ts'],
     rules: {
-      "@angular-eslint/prefer-standalone": [
-        "ignore"
-      ],
+      '@angular-eslint/prefer-standalone': ['ignore'],
       '@angular-eslint/directive-selector': [
         'error',
         {
@@ -28,6 +26,8 @@ module.exports = [
           style: 'camelCase',
         },
       ],
+      '@angular-eslint/template/click-events-have-key-events': ['ignore'],
+
       '@angular-eslint/component-selector': [
         'error',
         {
