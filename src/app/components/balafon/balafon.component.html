@@ -90,11 +90,11 @@
 
 <!-- <table> -->
 <div class="myRow">
-  // eslint-disable-next-line //
-
   <div
+    aria-hidden="true"
     *ngFor="let col of cols"
     (click)="playNote(col)"
+    (keydown)="playNote(col)"
     [matTooltip]="tooltip[col]"
     class="cell"
   >
@@ -108,13 +108,14 @@
       <div *ngIf="i === this.pattern.startAt" class="start-at"></div>
 
       <ng-container *ngFor="let col of cols">
-        <!--             context: inContextArea(row, col), -->
         <div
+          aria-hidden="true"
           [ngClass]="{
             cell: true,
             bar: row % pattern.ticksPerBar === 0
           }"
           (click)="toggle($event, row, col)"
+          (keydown)="toggle($event, row, col)"
           (contextmenu)="onRightClick($event, row, col)"
           [style.background]="getBackground(row, col)"
           (mousedown)="onDragStart($event, row, col)"

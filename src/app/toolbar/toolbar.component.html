@@ -15,16 +15,34 @@
     <ng-container *ngIf="user">
       <!-- <div style="padding-right:10px;margin: auto;">{{ user.displayName }}</div> -->
       <button mat-icon-button (click)="auth.logout()" matTooltip="Logout">
-        <img class="logo" [src]="user.photoURL" width="40" height="40" />
+        <img
+          alt="logo"
+          class="logo"
+          [src]="user.photoURL"
+          width="40"
+          height="40"
+        />
       </button>
     </ng-container>
 
-    <!-- <ngx-auth-firebaseui-providers *ngIf="!user" layout="column" providers="[google]"></ngx-auth-firebaseui-providers> -->
+    <ng-container *ngIf="!user">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="loginWithGoogle()"
+        matTooltip="Login with Google"
+      >
+        <mat-icon>login</mat-icon>
+        Login with Google
+      </button>
+    </ng-container>
   </mat-toolbar>
 
   <mat-divider> </mat-divider>
   <mat-progress-bar
-    *ngIf="!balafonService.ready$.value || !(ensembleService.ready$ | async)"
+    *ngIf="
+      !balafonService.ready$.value || (ensembleService.ready$ | async) === false
+    "
     mode="determinate"
     [value]="progressPercent"
   ></mat-progress-bar>

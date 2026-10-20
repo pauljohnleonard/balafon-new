@@ -323,6 +323,7 @@ export class BalafonComponent implements OnInit {
   }
 
   setMetaPattern(val: string) {
+    val = val || '';
     const max = this.pattern.nBars;
     let str = '';
 

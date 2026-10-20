@@ -6,6 +6,8 @@ import { AuthService } from '../services/auth.service';
 import { BalafonService } from '../services/balafon.service';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { EnsembleService } from '../services/ensemble.service';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import firebase from 'firebase/compat/app';
 
 @UntilDestroy()
 @Component({
@@ -26,7 +28,8 @@ export class ToolbarComponent implements OnInit {
     public uid: UidService,
     public auth: AuthService,
     public balafonService: BalafonService,
-    public ensembleService: EnsembleService
+    public ensembleService: EnsembleService,
+    private afAuth: AngularFireAuth
   ) {}
 
   async ngOnInit() {
@@ -40,6 +43,18 @@ export class ToolbarComponent implements OnInit {
         if (progress) {
           this.progressPercent = (100.0 * progress.progress) / progress.total;
         }
+      });
+  }
+
+  loginWithGoogle() {
+    this.afAuth
+      .signInWithPopup(new firebase.auth.GoogleAuthProvider())
+      .then((result) => {
+        // Optionally handle result
+      })
+      .catch((error) => {
+        // Optionally handle error
+        console.error('Google login error:', error);
       });
   }
 }

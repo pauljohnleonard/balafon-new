@@ -1,15 +1,19 @@
 <balafon-toolbar></balafon-toolbar>
-
 <mat-toolbar>
-  <span class="canpress" (click)="top()">Projects</span>
+  <span aria-hidden="true" class="canpress" (keydown)="top()" (click)="top()"
+    >Projects</span
+  >
 
   <!-- <mat-toolbar color="primary"> </mat-toolbar> -->
-  <span style="flex: 1 1 auto;"></span>
+  <span style="flex: 1 1 auto"></span>
   <button mat-icon-button (click)="addSong()" matTooltip="New project">
     <mat-icon>add</mat-icon>
   </button>
 </mat-toolbar>
-<mat-progress-bar *ngIf="storage.loading" mode="indeterminate"></mat-progress-bar>
+<mat-progress-bar
+  *ngIf="storage.loading"
+  mode="indeterminate"
+></mat-progress-bar>
 
 <mat-card *ngIf="ensembleService.list">
   <mat-card-content>
@@ -18,7 +22,12 @@
         <!-- Symbol Column -->
         <ng-container matColumnDef="title">
           <th mat-header-cell *matHeaderCellDef>Title</th>
-          <td class="canpress" mat-cell *matCellDef="let element" (click)="select(element)">
+          <td
+            class="canpress"
+            mat-cell
+            *matCellDef="let element"
+            (click)="select(element)"
+          >
             {{ element.title || element }}
           </td>
         </ng-container>
@@ -37,27 +46,49 @@
 
         <ng-container matColumnDef="save">
           <th mat-header-cell *matHeaderCellDef></th>
-          <td mat-cell *matCellDef="let element" (click)="saveItem($event, element)">
-            <mat-icon *ngIf="element.dirty && element.title" class="canpress">cloud_upload</mat-icon>
+          <td
+            mat-cell
+            *matCellDef="let element"
+            (click)="saveItem($event, element)"
+          >
+            <mat-icon *ngIf="element.dirty && element.title" class="canpress"
+              >cloud_upload</mat-icon
+            >
           </td>
         </ng-container>
 
         <ng-container matColumnDef="share">
           <th mat-header-cell *matHeaderCellDef></th>
-          <td class="canpress" mat-cell *matCellDef="let element" (click)="shareLink($event, element)">
+          <td
+            class="canpress"
+            mat-cell
+            *matCellDef="let element"
+            (click)="shareLink($event, element)"
+          >
             <mat-icon *ngIf="!element.dirty && element.title">share</mat-icon>
           </td>
         </ng-container>
 
         <ng-container matColumnDef="delete">
           <th mat-header-cell *matHeaderCellDef></th>
-          <td class="canpress" mat-cell *matCellDef="let element" (click)="deleteItem($event, element)">
-            <mat-icon *ngIf="!element.dirty && element.title">delete_forever</mat-icon>
+          <td
+            class="canpress"
+            mat-cell
+            *matCellDef="let element"
+            (click)="deleteItem($event, element)"
+          >
+            <mat-icon *ngIf="!element.dirty && element.title"
+              >delete_forever</mat-icon
+            >
           </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns" class="myrow"></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: displayedColumns"
+          class="myrow"
+        ></tr>
       </table>
     </div>
   </mat-card-content>
