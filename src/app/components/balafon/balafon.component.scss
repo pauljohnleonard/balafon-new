@@ -125,6 +125,15 @@ tr {
   width: 100%;
   justify-content: space-between;
   align-items: center;
+  gap: 6px;
+}
+
+.instrument {
+  width: 7.75rem;
+}
+
+.meta {
+  width: 6rem;
 }
 
 .popbutton {

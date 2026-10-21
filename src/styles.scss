@@ -1,11 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+
+html {
+  @include mat.theme((
+    color: (
+      theme-type: light,
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette,
+    ),
+    typography: Roboto,
+    density: 0,
+  ));
+}
 
 html,
 body {
   height: 100%;
 }
+html {
+  overflow-x: clip;
+}
 body {
   margin: 0;
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
@@ -16,6 +34,32 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.plain-field {
+  box-sizing: border-box;
+  height: 32px;
+  margin: 0;
+  padding: 0 8px;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  border-radius: 2px;
+  background: #fff;
+  color: inherit;
+  font: inherit;
+  font-size: 14px;
+}
+
+.plain-field:focus {
+  outline: none;
+  border-color: rgba(0, 0, 0, 0.55);
+}
+
+select.plain-field {
+  padding-right: 22px;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%23666' d='M0 0h10L5 6z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
 }
 
 .webmics-infobox {

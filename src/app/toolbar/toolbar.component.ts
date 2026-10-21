@@ -6,8 +6,7 @@ import { AuthService } from '../services/auth.service';
 import { BalafonService } from '../services/balafon.service';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { EnsembleService } from '../services/ensemble.service';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import firebase from 'firebase/compat/app';
+import { Auth, GoogleAuthProvider, signInWithPopup, User } from '@angular/fire/auth';
 
 @UntilDestroy()
 @Component({
@@ -17,7 +16,8 @@ import firebase from 'firebase/compat/app';
   styleUrls: ['./toolbar.component.scss'],
 })
 export class ToolbarComponent implements OnInit {
-  user;
+  user: User | null = null;
+  avatarFailed = false;
   calibrated = false;
   loading;
   progressPercent = 0;
@@ -29,12 +29,13 @@ export class ToolbarComponent implements OnInit {
     public auth: AuthService,
     public balafonService: BalafonService,
     public ensembleService: EnsembleService,
-    private afAuth: AngularFireAuth
+    private firebaseAuth: Auth
   ) {}
 
   async ngOnInit() {
     this.auth.user$.pipe(untilDestroyed(this)).subscribe((user) => {
       this.user = user;
+      this.avatarFailed = false;
     });
 
     this.balafonService.progress$
@@ -46,14 +47,19 @@ export class ToolbarComponent implements OnInit {
       });
   }
 
+  get avatarUrl(): string | null {
+    if (!this.user) {
+      return null;
+    }
+    return this.user.photoURL || this.user.providerData?.[0]?.photoURL || null;
+  }
+
   loginWithGoogle() {
-    this.afAuth
-      .signInWithPopup(new firebase.auth.GoogleAuthProvider())
-      .then((result) => {
-        // Optionally handle result
+    signInWithPopup(this.firebaseAuth, new GoogleAuthProvider())
+      .then(() => {
+        // AuthService.user$ updates from the same Auth instance.
       })
       .catch((error) => {
-        // Optionally handle error
         console.error('Google login error:', error);
       });
   }

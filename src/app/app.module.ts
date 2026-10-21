@@ -16,10 +16,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { HomeComponent } from './pages/home/home.component';
 import { SongComponent } from './pages/song/song.component';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
-import { MatSelectModule } from '@angular/material/select';
 import { MatListModule } from '@angular/material/list';
 import { TransportComponent } from './components/transport/transport.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -28,7 +26,6 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatTableModule } from '@angular/material/table';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
-import { MatInputModule } from '@angular/material/input';
 import { environment } from 'src/environments/environment';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideStorage, getStorage } from '@angular/fire/storage';
@@ -50,11 +47,8 @@ import { provideStorage, getStorage } from '@angular/fire/storage';
     HttpClientModule,
     MatSliderModule,
     MatButtonModule,
-    MatFormFieldModule,
     MatIconModule,
-    MatInputModule,
     MatSliderModule,
-    MatSelectModule,
     MatIconModule,
     MatProgressBarModule,
     MatButtonModule,
@@ -63,7 +57,6 @@ import { provideStorage, getStorage } from '@angular/fire/storage';
     MatTooltipModule,
     MatMenuModule,
     MatCardModule,
-    MatFormFieldModule,
 
     MatListModule,
     ReactiveFormsModule,

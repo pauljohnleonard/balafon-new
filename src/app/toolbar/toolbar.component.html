@@ -13,15 +13,21 @@
 
     <span style="flex: 1 1 auto"></span>
     <ng-container *ngIf="user">
-      <!-- <div style="padding-right:10px;margin: auto;">{{ user.displayName }}</div> -->
-      <button mat-icon-button (click)="auth.logout()" matTooltip="Logout">
+      <button
+        class="avatar-button"
+        type="button"
+        (click)="auth.logout()"
+        matTooltip="Logout"
+      >
         <img
-          alt="logo"
-          class="logo"
-          [src]="user.photoURL"
-          width="40"
-          height="40"
+          *ngIf="avatarUrl && !avatarFailed"
+          class="avatar"
+          [src]="avatarUrl"
+          referrerpolicy="no-referrer"
+          alt=""
+          (error)="avatarFailed = true"
         />
+        <mat-icon *ngIf="!avatarUrl || avatarFailed">account_circle</mat-icon>
       </button>
     </ng-container>
 

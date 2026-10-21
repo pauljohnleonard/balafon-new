@@ -1,0 +1,24 @@
+.transport {
+  border: 1px solid rgba(30, 30, 30, 0.1);
+}
+
+.transport-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  width: 320px;
+}
+
+mat-slider {
+  flex: 1 1 auto;
+  width: 140px;
+}
+
+.note {
+  height: 35px;
+}
+
+.bpm {
+  min-width: 2.5rem;
+  text-align: right;
+}

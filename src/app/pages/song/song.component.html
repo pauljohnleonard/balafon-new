@@ -1,33 +1,16 @@
 <balafon-toolbar [showBack]="showBack" (back)="goBack()"> </balafon-toolbar>
-<div
-  style="
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  "
-  *ngIf="ensemble"
->
-  <mat-toolbar>
-    <mat-form-field style="flex: 1 1 auto">
-      <input
-        matInput
-        type="text"
-        [formControl]="title"
-        matTooltip="Edit title"
-      />
-    </mat-form-field>
+<div class="song-page" *ngIf="ensemble">
+  <mat-toolbar class="song-bar">
+    <input
+      class="plain-field title"
+      type="text"
+      [formControl]="title"
+      matTooltip="Edit title"
+    />
 
-    <span style="flex: 1 1 auto"></span>
+    <span class="spacer"></span>
 
-    <mat-form-field style="flex: 1 1 auto">
-      <input
-        matInput
-        [formControl]="countIn"
-        type="text"
-        style="width: 200px"
-      />
-    </mat-form-field>
+    <input class="plain-field count-in" type="text" [formControl]="countIn" />
 
     <button
       mat-icon-button
@@ -49,9 +32,8 @@
   </mat-toolbar>
 
   <div class="balafon-container">
-    <ng-container *ngFor="let pattern of ensemble.patterns; let last = last">
+    <ng-container *ngFor="let pattern of ensemble.patterns">
       <balafon-app [ensembleComponent]="this" [pattern]="pattern"></balafon-app>
-      <div *ngIf="!last" style="width: 20px"></div>
     </ng-container>
 
     <button mat-icon-button (click)="addBalafon()" matTooltip="Add looper">
